@@ -29,7 +29,7 @@ module Medici
 
       @entries << other
       @entries.sort_by!(&:event)
-      @balance = Accounting.wrap_number(@balance + other.amount)
+      @balance = Medici.wrap_number(@balance + other.amount)
       update_mutable_data(other.data)
       self
     end

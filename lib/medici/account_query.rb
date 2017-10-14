@@ -102,7 +102,7 @@ module Medici
       end
 
       def category
-        @attribute_constraints[:category]
+        @class_constraints[:category]
       end
 
       def data
@@ -119,7 +119,9 @@ module Medici
       end
 
       def construct_account
-        Object.const_get(category).new(balance: 0, **data)
+        klass = Account.types.detect { |t| t.category == category }
+        raise "Can't find matching klass for category #{category}" unless klass.present?
+        klass.new(balance: 0, **data)
       end
 
       def inspect
