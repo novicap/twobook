@@ -1,0 +1,49 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+  Metrics/LineLength:
+  Max: 120 # ~the width of a github code panel
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 50
+
+Metrics/BlockLength:
+  Exclude:
+    - "Rakefile"
+    - "**/*.rake"
+    - "spec/**/*.rb"
+
+Metrics/ClassLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/CollectionMethods:
+  Enabled: true
+  PreferredMethods:
+    collect: 'map'
+    collect!: 'map!'
+    inject: 'reduce'
+    find: 'detect'
+    find_all: 'select'
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
