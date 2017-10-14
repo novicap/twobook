@@ -4,12 +4,17 @@ module Medici
 
     attr_reader :name, :balance, :data, :tags, :entries, :ledger
 
-    def initialize(balance: 0, data: {})
+    def initialize(balance: 0, **data)
       @balance = Medici.wrap_number(balance)
       @entries = []
 
       @data = data
       @name = define_name
+
+      valid_data = self.class.name_includes + self.class.has
+      data.keys.each do |key|
+        raise "Invalid data #{key} for #{self.class.category}" unless key.in?(valid_data)
+      end
     end
 
     def clone
@@ -35,10 +40,13 @@ module Medici
 
     # Account equality is based only on name, which must be unique
     def ==(other)
-      name == other.name
+      @name == other.name
     end
     alias eql? ==
-    alias hash name
+
+    def hash
+      @name.hash
+    end
 
     def update_mutable_data(data)
       validate_data_mutable(data)

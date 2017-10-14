@@ -1,4 +1,4 @@
-module Accounting
+module Medici
   class Event
     include Comparable
 
@@ -29,7 +29,7 @@ module Accounting
     end
 
     def inspect
-      "<#{self.class.name} @data=#{@data.to_s.truncate(50)} @happened_at=#{@happened_at}>"
+      "<#{self.class.name} @data=#{@data.to_s} @happened_at=#{@happened_at}>"
     end
 
     def update_partial_order(i)

@@ -1,5 +1,7 @@
 require 'bundler/setup'
 require 'medici'
+require_relative 'medici/test_accounting_classes'
+require 'pry'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
