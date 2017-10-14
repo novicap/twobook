@@ -1,5 +1,6 @@
-require "medici/version"
-
-module Medici
-  # Your code goes here...
-end
+require 'medici/version'
+require 'medici/configuration'
+require 'active_support/inflector'
+require 'medici/number_handling'
+require 'medici/utilities'
+require 'medici/account'

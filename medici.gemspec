@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = 'medici'
   spec.version       = Medici::VERSION
   spec.authors       = ['Michael Parry']
-  spec.email         = ['parry.my@gmail.com']
+  spec.email         = ['michael.parry@novicap.com']
 
-  spec.summary       = 'Double-entry accounting with superpowers'
-  spec.description   = 'Database-optional double-entry accounting system with built-in corrections'
-  spec.homepage      = 'https://github.com/parry-my/medici'
+  spec.summary       = "Double-entry accounting with superpowers"
+  spec.description   = "Database-optional double-entry accounting system with built-in corrections"
+  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
       'public gem pushes.'
   end
 
-  spec.files = `git ls-files -z`.split('\x0').reject do |f|
+  spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
   spec.bindir = 'exe'
@@ -33,4 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.15'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
+
+  spec.add_runtime_dependency 'activesupport', '>= 4.0.0'
 end

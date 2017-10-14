@@ -1,7 +1,7 @@
 AllCops:
   TargetRubyVersion: 2.3
 
-  Metrics/LineLength:
+Metrics/LineLength:
   Max: 120 # ~the width of a github code panel
 
 Metrics/MethodLength:
@@ -47,3 +47,13 @@ Style/Lambda:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 45
+Metrics/CyclomaticComplexity:
+  Max: 9
+Metrics/PerceivedComplexity:
+  Max: 10
