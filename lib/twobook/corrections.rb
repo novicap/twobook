@@ -2,6 +2,7 @@ module Twobook
   module Corrections
     def self.make_deletion(event, accounts, history, happened_at: Time.current)
       correct_history = history - [event]
+      correct_history.reject! { |historical_event| historical_event < event }
 
       snapshots = accounts.map do |a|
         Serialization.serialize_account(a, before_event: event, allow_empty: false)
@@ -19,6 +20,7 @@ module Twobook
       index = history.index(edited_event)
       correct_history = history.deep_dup
       correct_history[index] = edited_event
+      correct_history.reject! { |historical_event| historical_event < edited_event }
 
       snapshots = accounts.map do |a|
         Serialization.serialize_account(a, before_event: edited_event, allow_empty: false)
