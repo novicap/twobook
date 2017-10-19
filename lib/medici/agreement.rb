@@ -13,7 +13,10 @@ module Medici
 
         @data[k] = Medici.wrap_number(v) if v.is_a?(Numeric)
       end
-      raise "Cannot initialize agreement #{inspect}: required #{remaining_keys_to_match}" if remaining_keys_to_match.any?
+
+      if remaining_keys_to_match.any?
+        raise "Cannot initialize agreement #{inspect}: required #{remaining_keys_to_match}"
+      end
     end
 
     def handlers_for(event)
@@ -63,9 +66,9 @@ module Medici
 
     def self.from_name(name)
       match = types.detect do |t|
-        t.name == "#{Medici.configuration.accounting_namespace}::Agreements::#{name.camelize}"
+        t.name =~ /#{name.camelize}$/
       end
-      raise "Bad agreement name in database: #{name}" unless match
+      raise "Bad agreement name: #{name}" unless match
       match
     end
 

@@ -21,14 +21,19 @@ module Medici
 
     # Lists all the leaf node descendants of a class.
     # The files must already be loaded.
-    def self.types(klass)
-      @types_cache ||= {}
-      @types_cache[klass.name] ||=
-        begin
-          klass.descendants
-               .reject { |k| k.name.nil? || k.subclasses.reject { |s| s.name.nil? }.any? }
-               .sort_by(&:name)
-        end
+    def self.types(klass, cache = false)
+      if cache
+        @types_cache ||= {}
+        return @types_cache[klass.name] ||= begin
+            klass.descendants
+                 .reject { |k| k.name.nil? || k.subclasses.reject { |s| s.name.nil? }.any? }
+                 .sort_by(&:name)
+          end
+      end
+
+      klass.descendants
+           .reject { |k| k.name.nil? || k.subclasses.reject { |s| s.name.nil? }.any? }
+           .sort_by(&:name)
     end
   end
 end

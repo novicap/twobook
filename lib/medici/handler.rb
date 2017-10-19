@@ -35,7 +35,7 @@ module Medici
     end
 
     def handle
-      raise 'Not implemented'
+      raise 'This handler needs a #handle method'
     end
 
     def name
@@ -47,7 +47,7 @@ module Medici
     end
 
     def self.from_name(name)
-      match = types.detect { |t| t.name == "#{Medici.configuration.accounting_namespace}::Handlers::#{name.camelize}" }
+      match = types.detect { |t| t.name =~ /#{name.camelize}$/ }
       raise "Bad handler name: #{name}" unless match
       match
     end

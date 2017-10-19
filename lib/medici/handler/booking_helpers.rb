@@ -14,9 +14,9 @@ module Medici
         account << entry(amount, data: data)
       end
 
-      def book(amount, debit: nil, credit: nil)
-        to_debit = debit
-        to_credit = credit
+      def book(amount, debit: nil, dr: nil, credit: nil, cr: nil)
+        to_debit = debit || dr
+        to_credit = credit || cr
         raise 'Must credit one account and debit one account' unless to_debit && to_credit
         transaction_id = SecureRandom.uuid
         debit amount, to_debit, transaction_id: transaction_id

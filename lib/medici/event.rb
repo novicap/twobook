@@ -5,10 +5,10 @@ module Medici
     attr_reader :data, :happened_at, :uuid, :partial_order
     attr_accessor :entries, :agreements
 
-    def initialize(happened_at: Time.current, **data)
+    def initialize(happened_at: Time.current, uuid: SecureRandom.uuid, **data)
       @happened_at = happened_at
       @data = data
-      @uuid = SecureRandom.uuid
+      @uuid = uuid
       @agreements = []
       @entries = []
 
@@ -37,7 +37,9 @@ module Medici
 
     def fetch_and_assign_agreements!
       @agreements = fetch_agreements!
+      self
     end
+    alias load! fetch_and_assign_agreements!
 
     def inspect
       "<#{self.class.name} @data=#{@data} @happened_at=#{@happened_at}>"
@@ -58,7 +60,6 @@ module Medici
     end
 
     def <=>(other)
-      return -1 if other.is_a?(Symbol) && other == :everything
       return @happened_at <=> other if other.is_a?(Time)
       [@happened_at, @partial_order || 0] <=> [other.happened_at, other.partial_order || 0]
     end
@@ -68,7 +69,7 @@ module Medici
     end
 
     def self.from_name(name)
-      match = types.detect { |t| t.name == "#{Medici.configuration.accounting_namespace}::Events::#{name.camelize}" }
+      match = types.detect { |t| t.name =~ /#{name.camelize}$/ }
       raise "Bad event name #{name}" unless match
       match
     end

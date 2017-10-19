@@ -38,14 +38,32 @@ module Medici
       clone << other
     end
 
-    # Account equality is based only on name, which must be unique
-    def ==(other)
-      @name == other.name
+    def balance_before_event(event)
+      @entries.reduce(0) do |running_total, entry|
+        return running_total if entry.event >= event
+        running_total + entry.amount
+      end
     end
-    alias eql? ==
 
-    def hash
-      @name.hash
+    def data_before_event(event)
+      @entries.reduce(@data.slice(*self.class.name_includes)) do |running_total, entry|
+        return running_total if entry.event >= event
+        running_total.merge(entry.data)
+      end
+    end
+
+    def balance_before(time)
+      @entries.reduce(0) do |running_total, entry|
+        return running_total if entry.event.happened_at >= time
+        running_total + entry.amount
+      end
+    end
+
+    def data_before(time)
+      @entries.reduce(@data.slice(*self.class.name_includes)) do |running_total, entry|
+        return running_total if entry.event.happened_at >= time
+        running_total.merge(entry.data)
+      end
     end
 
     def update_mutable_data(data)
@@ -61,6 +79,16 @@ module Medici
       end
     end
 
+    # Account equality is based only on name, which must be unique
+    def ==(other)
+      @name == other.name
+    end
+    alias eql? ==
+
+    def hash
+      @name.hash
+    end
+
     def inspect
       inspected_balance = @balance.to_f
       "<#{self.class.name} @name=#{@name} @balance=#{inspected_balance} entry_count=#{@entries.count}>"
@@ -68,6 +96,15 @@ module Medici
 
     def self.category
       name.underscore.gsub("#{Medici.configuration.accounting_namespace.underscore}/accounts/", '')
+    end
+
+    def self.from_name(name)
+      category_part = name.split(':').first
+      match = types.detect do |t|
+        t.name =~ /#{category_part.camelize}$/
+      end
+      raise "Bad account name: #{name}" unless match
+      match
     end
 
     def self.types

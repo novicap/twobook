@@ -120,7 +120,7 @@ module Medici
 
       def construct_account
         klass = Account.types.detect { |t| t.category == category }
-        raise "Can't find matching klass for category #{category}" unless klass.present?
+        raise "Can't find matching class for category #{category}" unless klass.present?
         klass.new(balance: 0, **data)
       end
 

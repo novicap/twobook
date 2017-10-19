@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Michael Parry']
   spec.email         = ['michael.parry@novicap.com']
 
-  spec.summary       = "Double-entry accounting with superpowers"
-  spec.description   = "Database-optional double-entry accounting system with built-in corrections"
+  spec.summary       = 'Double-entry accounting with superpowers'
+  spec.description   = 'Database-optional double-entry accounting system with built-in corrections'
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = 'MIT'
 
