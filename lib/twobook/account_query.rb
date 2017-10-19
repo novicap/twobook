@@ -9,7 +9,7 @@ module Twobook
       false
     end
 
-    def execute(array)
+    def on(array)
       array
     end
 
@@ -48,7 +48,7 @@ module Twobook
     end
 
     class NoneQuery < AccountQuery
-      def execute(_)
+      def on(_)
         []
       end
 
@@ -88,8 +88,8 @@ module Twobook
         @child_query.none?
       end
 
-      def execute(array)
-        @child_query.execute(array).select do |account|
+      def on(array)
+        @child_query.on(array).select do |account|
           next unless matches_attributes(account)
           next unless matches_class(account)
           next unless matches_data(account)
@@ -166,7 +166,7 @@ module Twobook
         @account
       end
 
-      def execute(accounts)
+      def on(accounts)
         accounts.select { |account| account.name == @name }
       end
     end
@@ -179,8 +179,8 @@ module Twobook
         @second = second
       end
 
-      def execute(array)
-        @first.execute(array) & @second.execute(array)
+      def on(array)
+        @first.on(array) & @second.on(array)
       end
 
       def none?
@@ -200,8 +200,8 @@ module Twobook
         @first.none? && @second.none?
       end
 
-      def execute(array)
-        @first.execute(array) | @second.execute(array)
+      def on(array)
+        @first.on(array) | @second.on(array)
       end
     end
   end

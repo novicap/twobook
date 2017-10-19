@@ -21,7 +21,7 @@ module Twobook
       end
 
       def satisfy_requirement(requested:, query:)
-        accounts = query.execute(@accounts_in_process)
+        accounts = query.on(@accounts_in_process)
 
         case requested
         when :one

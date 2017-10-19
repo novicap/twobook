@@ -29,7 +29,7 @@ RSpec.describe Twobook::Corrections do
     it 'knows the balance of accounts at various points in time' do
       current_account = Twobook::AccountQuery.where(
         category: 'current_account',
-      ).execute(accounts).first
+      ).on(accounts).first
 
       expect(current_account.balance).to eq 4050
       expect(current_account.balance_before(now - 5.days)).to eq 0

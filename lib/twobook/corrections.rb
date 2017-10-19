@@ -49,7 +49,7 @@ module Twobook
         correct_accounts = self.class.simulate_correction(corrected_events, account_snapshots)
 
         correct_accounts.each do |correct|
-          original = where(name: correct.name).execute(@accounts_in_process).first
+          original = where(name: correct.name).on(@accounts_in_process).first
           adjust_original_account_balance(original, correct)
           adjust_original_account_data(original, correct)
         end
