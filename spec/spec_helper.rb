@@ -1,6 +1,6 @@
 require 'bundler/setup'
-require 'medici'
-require_relative 'medici/test_accounting_classes'
+require 'twobook'
+require_relative 'twobook/test_accounting_classes'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -19,12 +19,12 @@ def expect_account_balances(accounts, table)
     query, reason = (
       if name_or_category =~ /:/
         [
-          Medici::AccountQuery.where(name: name_or_category),
+          Twobook::AccountQuery.where(name: name_or_category),
           "expected balance of account \"#{name_or_category}\" to be #{total_balance}, got %s",
         ]
       else
         [
-          Medici::AccountQuery.where(category: name_or_category),
+          Twobook::AccountQuery.where(category: name_or_category),
           "expected sum of accounts in category \"#{name_or_category}\" to be #{total_balance}, got %s",
         ]
       end

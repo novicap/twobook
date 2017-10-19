@@ -1,34 +1,34 @@
 module Accounting
   module Accounts
-    class CreditCard < Medici::Account
+    class CreditCard < Twobook::Account
       account_type :liabilities
       name_includes :person_name
       has :expires_at
     end
 
-    class CurrentAccount < Medici::Account
+    class CurrentAccount < Twobook::Account
       account_type :assets
       name_includes :person_name
     end
 
-    class Savings < Medici::Account
+    class Savings < Twobook::Account
       account_type :assets
       name_includes :person_name
     end
 
-    class InterestFromCreditCard < Medici::Account
+    class InterestFromCreditCard < Twobook::Account
       account_type :expenses
       name_includes :person_name
     end
 
-    class BirthdayMoney < Medici::Account
+    class BirthdayMoney < Twobook::Account
       account_type :revenue
       name_includes :person_name
     end
   end
 
   module Events
-    class BirthdayMoneyReceived < Medici::Event
+    class BirthdayMoneyReceived < Twobook::Event
       has :amount, :person_name
 
       def fetch_agreements!
@@ -43,7 +43,7 @@ module Accounting
   end
 
   module Handlers
-    class ProcessIncomingMoney < Medici::Handler
+    class ProcessIncomingMoney < Twobook::Handler
       def handle(amount:, saving_percentage: 0)
         saving = amount * saving_percentage
         book amount - saving, debit: current_account, credit: revenue_account
@@ -61,7 +61,7 @@ module Accounting
   end
 
   module Agreements
-    class SavingsScheme < Medici::Agreement
+    class SavingsScheme < Twobook::Agreement
       has :saving_percentage
 
       handles 'birthday_money_received', with: 'process_incoming_money'

@@ -1,11 +1,11 @@
-module Medici
+module Twobook
   class Account
     ACCOUNT_TYPES = %i(assets liabilities revenue expenses records)
 
     attr_reader :name, :balance, :data, :tags, :entries, :ledger
 
     def initialize(balance: 0, **data)
-      @balance = Medici.wrap_number(balance)
+      @balance = Twobook.wrap_number(balance)
       @entries = []
 
       @data = data
@@ -29,7 +29,7 @@ module Medici
 
       @entries << other
       @entries.sort_by!(&:event)
-      @balance = Medici.wrap_number(@balance + other.amount)
+      @balance = Twobook.wrap_number(@balance + other.amount)
       update_mutable_data(other.data)
       self
     end
@@ -95,7 +95,7 @@ module Medici
     end
 
     def self.category
-      name.underscore.gsub("#{Medici.configuration.accounting_namespace.underscore}/accounts/", '')
+      name.underscore.gsub("#{Twobook.configuration.accounting_namespace.underscore}/accounts/", '')
     end
 
     def self.from_name(name)
@@ -108,7 +108,7 @@ module Medici
     end
 
     def self.types
-      Utilities.types(Medici::Account)
+      Utilities.types(Twobook::Account)
     end
 
     def self.tagged?(tag)

@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   def self.simulate(event, input_accounts = [])
     return simulate_chain(event, input_accounts) if event.is_a?(Array)
     raise 'Cannot simulate: event has no agreements' unless event.agreements.any?

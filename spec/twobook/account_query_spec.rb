@@ -1,4 +1,4 @@
-RSpec.describe Medici::AccountQuery do
+RSpec.describe Twobook::AccountQuery do
   def test(**query)
     described_class.where(query).execute(accounts)
   end

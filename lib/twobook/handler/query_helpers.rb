@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   class Handler
     # Mixin for Handler with some query shorthand.
     # Expects @accounts_in_process to be set when running a handler
@@ -39,7 +39,7 @@ module Medici
           end
           it
         when :many
-          Medici.wrap_account_list!(accounts)
+          Twobook.wrap_account_list!(accounts)
         else
           raise "Cannot satisfy requirement request #{requested}: not supported"
         end

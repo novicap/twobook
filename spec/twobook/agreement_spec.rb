@@ -1,4 +1,4 @@
-RSpec.describe Medici::Agreement do
+RSpec.describe Twobook::Agreement do
   let(:agreement) { Accounting::Agreements::SavingsScheme.new(saving_percentage: 0.1) }
   let(:event) { Accounting::Events::BirthdayMoneyReceived.new(amount: 100, person_name: 'jackson') }
 

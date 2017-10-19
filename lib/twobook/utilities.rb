@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   module Utilities
     def self.match_params(method, available, error_message)
       required = method.parameters.select { |p| p.first == :keyreq }.map(&:second)

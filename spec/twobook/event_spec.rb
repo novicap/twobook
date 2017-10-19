@@ -1,9 +1,9 @@
-RSpec.describe Medici::Event do
+RSpec.describe Twobook::Event do
   it 'initializes' do
     event = described_class.new
     expect(event.uuid).to be_present
     expect(event.happened_at).to be_present
-    expect(event.class.event_name).to eq 'medici/event'
+    expect(event.class.event_name).to eq 'twobook/event'
   end
 
   it 'can have data' do

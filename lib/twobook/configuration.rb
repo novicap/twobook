@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   class Configuration
     attr_accessor :accounting_namespace
   end

@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   class Handler
     # Mixin for Handler with some booking shorthand.
     # Expects @account_in_process and @event_in_process to be set.

@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   class Agreement
     attr_reader :data
 
@@ -11,7 +11,7 @@ module Medici
         raise "Cannot initialize agreement #{inspect}: #{k} is nil" if v.nil?
         define_singleton_method k, -> { @data.dig(k) }
 
-        @data[k] = Medici.wrap_number(v) if v.is_a?(Numeric)
+        @data[k] = Twobook.wrap_number(v) if v.is_a?(Numeric)
       end
 
       if remaining_keys_to_match.any?
@@ -39,7 +39,7 @@ module Medici
     end
 
     def self.agreement_name
-      name.underscore.gsub("#{Medici.configuration.accounting_namespace.underscore}/agreements/", '')
+      name.underscore.gsub("#{Twobook.configuration.accounting_namespace.underscore}/agreements/", '')
     end
 
     def self.handles(event_name = nil, with: nil)

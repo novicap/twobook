@@ -7,11 +7,11 @@ class BigDecimal
   end
 
   def as_json(*_)
-    truncate(Medici::SCALE).to_f
+    truncate(Twobook::SCALE).to_f
   end
 end
 
-module Medici
+module Twobook
   ::BigDecimal.mode(::BigDecimal::ROUND_MODE, ::BigDecimal::ROUND_HALF_EVEN)
   PRECISION = 15 # significant figures
   SCALE = 6 # decimals after the point

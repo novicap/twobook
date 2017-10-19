@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   class AccountQuery
     def after(event)
       @after = event
@@ -72,7 +72,7 @@ module Medici
         # e.g. "sme/liabilities/payout" instead of Accounting::Accounts::Sme::Liabilities::Payout.name
         category = @attribute_constraints[:category]
         if category.present?
-          unless category_name.in?(Medici::Account.types.map { |t| t.class.category })
+          unless category_name.in?(Twobook::Account.types.map { |t| t.class.category })
             raise "Invalid category: #{category}"
           end
         end

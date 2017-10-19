@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   module Serialization
     def self.serialize_event(event)
       {

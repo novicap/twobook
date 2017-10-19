@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   module Corrections
     def self.make_deletion(event, accounts, history, happened_at: Time.current)
       correct_history = history - [event]
@@ -32,11 +32,11 @@ module Medici
       )
     end
 
-    class CorrectionBuffer < Medici::Account
+    class CorrectionBuffer < Twobook::Account
       account_type :assets
     end
 
-    class CorrectionMade < Medici::Event
+    class CorrectionMade < Twobook::Event
       has :account_snapshots, :corrected_events, :correction_explanation
 
       def fetch_agreements!
@@ -56,8 +56,8 @@ module Medici
       end
 
       def adjust_original_account_balance(original, correct)
-        correct_balance = correct.balance || Medici.wrap_number(0)
-        original_balance = original.balance || Medici.wrap_number(0)
+        correct_balance = correct.balance || Twobook.wrap_number(0)
+        original_balance = original.balance || Twobook.wrap_number(0)
         diff = correct_balance - original_balance
         return if diff.zero?
 
@@ -92,7 +92,7 @@ module Medici
         end.zip(requirements).to_h
 
         {
-          buffer_account: one(where(category: 'medici/corrections/correction_buffer')),
+          buffer_account: one(where(category: 'twobook/corrections/correction_buffer')),
           **labelled_requirements,
         }
       end
@@ -100,12 +100,12 @@ module Medici
       def self.simulate_correction(events, accounts)
         deserialized_events = events.map { |e| Serialization.deserialize_event(e) }
         deserialized_accounts = accounts.map { |a| Serialization.deserialize_account(a) }
-        Medici.simulate(deserialized_events, deserialized_accounts)
+        Twobook.simulate(deserialized_events, deserialized_accounts)
       end
     end
 
     class Correction < Agreement
-      handles 'medici/corrections/correction_made', with: 'medici/corrections/simulated_difference_adjustment'
+      handles 'twobook/corrections/correction_made', with: 'twobook/corrections/simulated_difference_adjustment'
     end
   end
 end

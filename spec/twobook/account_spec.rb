@@ -1,7 +1,7 @@
-RSpec.describe Medici::Account do
+RSpec.describe Twobook::Account do
   it 'initializes' do
     account = described_class.new
-    expect(account.name).to eq 'medici/account'
+    expect(account.name).to eq 'twobook/account'
   end
 
   context 'when I have an account' do

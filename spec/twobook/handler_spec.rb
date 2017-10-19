@@ -1,4 +1,4 @@
-RSpec.describe Medici::Handler do
+RSpec.describe Twobook::Handler do
   let(:event) { Accounting::Events::BirthdayMoneyReceived.new(amount: 1000, person_name: 'jackson') }
   let(:handler) { Accounting::Handlers::ProcessIncomingMoney.new(event: event) }
 
@@ -16,7 +16,7 @@ RSpec.describe Medici::Handler do
     requirements = handler.account_requirements
     expect(requirements.count).to eq 3
     expect(requirements.first[:requested]).to eq :one
-    expect(requirements.first[:query]).to be_a(Medici::AccountQuery)
+    expect(requirements.first[:query]).to be_a(Twobook::AccountQuery)
   end
 
   context 'when the handler is given some extra data at initialization' do

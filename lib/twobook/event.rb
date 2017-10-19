@@ -1,4 +1,4 @@
-module Medici
+module Twobook
   class Event
     include Comparable
 
@@ -17,7 +17,7 @@ module Medici
         raise "Cannot initialize event #{inspect}: unexpected parameter #{k}" if remaining_keys_to_match.delete(k).nil?
         raise "Cannot initialize event #{inspect}: #{k} is nil" if v.nil?
 
-        @data[k] = Medici.wrap_number(v) if v.is_a?(Numeric)
+        @data[k] = Twobook.wrap_number(v) if v.is_a?(Numeric)
 
         define_singleton_method k, -> { @data.dig(k) }
       end
@@ -65,7 +65,7 @@ module Medici
     end
 
     def self.event_name
-      name.underscore.gsub("#{Medici.configuration.accounting_namespace.underscore}/events/", '')
+      name.underscore.gsub("#{Twobook.configuration.accounting_namespace.underscore}/events/", '')
     end
 
     def self.from_name(name)

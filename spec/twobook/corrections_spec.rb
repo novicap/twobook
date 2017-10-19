@@ -1,5 +1,5 @@
-RSpec.describe Medici::Corrections do
-  context "when some events have happened" do
+RSpec.describe Twobook::Corrections do
+  context 'when some events have happened' do
     let!(:now) { Time.current }
 
     let(:agreement) { Accounting::Agreements::SavingsScheme.new(saving_percentage: 0.1) }
@@ -23,11 +23,11 @@ RSpec.describe Medici::Corrections do
     end
 
     let(:accounts) do
-      Medici.simulate(events, [])
+      Twobook.simulate(events, [])
     end
 
     it 'knows the balance of accounts at various points in time' do
-      current_account = Medici::AccountQuery.where(
+      current_account = Twobook::AccountQuery.where(
         category: 'current_account',
       ).execute(accounts).first
 
@@ -42,13 +42,13 @@ RSpec.describe Medici::Corrections do
 
     it 'can create a deletion correction' do
       event = described_class.make_deletion(events.first, accounts, events)
-      results = Medici.simulate(event.load!, accounts)
+      results = Twobook.simulate(event.load!, accounts)
 
       expect_account_balances results, [
         'current_account:jackson', 3150,
         'birthday_money:jackson', 3500,
         'savings:jackson', 350,
-        'medici/corrections/correction_buffer', 0,
+        'twobook/corrections/correction_buffer', 0,
       ]
     end
 
@@ -56,13 +56,13 @@ RSpec.describe Medici::Corrections do
       correct_event = events.first
       correct_event.data[:amount] = 500
       event = described_class.make_edit(correct_event, accounts, events)
-      results = Medici.simulate(event.load!, accounts)
+      results = Twobook.simulate(event.load!, accounts)
 
       expect_account_balances results, [
         'current_account:jackson', 3600,
         'birthday_money:jackson', 4000,
         'savings:jackson', 400,
-        'medici/corrections/correction_buffer', 0,
+        'twobook/corrections/correction_buffer', 0,
       ]
     end
   end

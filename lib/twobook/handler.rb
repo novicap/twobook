@@ -1,7 +1,7 @@
 require_relative 'handler/query_helpers'
 require_relative 'handler/booking_helpers'
 
-module Medici
+module Twobook
   class Handler
     include QueryHelpers
     include BookingHelpers
@@ -43,7 +43,7 @@ module Medici
     end
 
     def self.handler_name
-      name.underscore.gsub("#{Medici.configuration.accounting_namespace.underscore}/handlers/", '')
+      name.underscore.gsub("#{Twobook.configuration.accounting_namespace.underscore}/handlers/", '')
     end
 
     def self.from_name(name)

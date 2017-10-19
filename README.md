@@ -1,4 +1,4 @@
-# Medici
+# Twobook
 
 Double-entry accounting with superpowers (alpha!)
 
@@ -7,7 +7,7 @@ Double-entry accounting with superpowers (alpha!)
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'medici'
+gem 'twobook'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install medici
+    $ gem install twobook
 
 ## Usage
 
@@ -30,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/michael.parry@novicap.com/medici.
+Bug reports and pull requests are welcome on GitHub at https://github.com/michael.parry@novicap.com/twobook.
 
 ## License
 
