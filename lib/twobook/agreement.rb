@@ -44,18 +44,17 @@ module Twobook
 
     def self.handles(event_name = nil, with: nil)
       @handles ||= {}
+      if event_name.nil?
+        # We're trying to get the handler for an event. Check all the names map to valid classes:
+        @handles.transform_values { |handler_names| handler_names.map { |name| Handler.from_name(name) } }
+      end
       return @handles if event_name.nil?
 
       if @handles[event_name].present?
         raise "Duplicate handler: more than one handler defined for #{event_name} on #{name}"
       end
 
-      # Check that all names map to valid classes
-      Event.from_name(event_name)
-      handler_names = with.is_a?(Array) ? with : [with]
-      handler_names.each { |handler_name| Handler.from_name(handler_name) }
-
-      @handles[event_name] = handler_names
+      @handles[event_name] = with.is_a?(Array) ? with : [with]
     end
 
     def self.has(*args)
